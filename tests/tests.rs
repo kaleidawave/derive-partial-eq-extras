@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use derive_partial_eq_extras::PartialEqExtras;
 
 #[derive(PartialEqExtras, Debug)]
