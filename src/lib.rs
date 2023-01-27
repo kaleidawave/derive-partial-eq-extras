@@ -27,9 +27,9 @@ pub fn partial_eq_extras(input: TokenStream) -> TokenStream {
         vec![parse_quote!(other: &Self)],
         Some(parse_quote!(bool)),
         |item| {
-            let ignored_types: Vec<Type> = item
-                .structure
-                .attributes()
+            let attributes = item.structure.get_attributes();
+
+            let ignored_types: Vec<Type> = attributes
                 .iter()
                 .filter(|attr| attr.path.is_ident(IGNORE_TYPES))
                 .flat_map(|attr| {
@@ -45,12 +45,12 @@ pub fn partial_eq_extras(input: TokenStream) -> TokenStream {
                         build_comparison_for_fields(r#struct.get_fields_mut(), &ignored_types);
 
                     let left_patterns = r#struct.get_fields().to_pattern_with_config(
-                        r#struct.get_path(),
+                        r#struct.get_constructor_path(),
                         syn_helpers::TypeOfSelf::Reference,
                         LEFT_NAME_POSTFIX,
                     );
                     let right_patterns = r#struct.get_fields().to_pattern_with_config(
-                        r#struct.get_path(),
+                        r#struct.get_constructor_path(),
                         syn_helpers::TypeOfSelf::Reference,
                         RIGHT_NAME_POSTFIX,
                     );
@@ -61,17 +61,17 @@ pub fn partial_eq_extras(input: TokenStream) -> TokenStream {
                     Ok(vec![declaration, Stmt::Expr(expr)])
                 }
                 syn_helpers::Structure::Enum(r#enum) => {
-                    let branches = r#enum.variants.iter_mut().map(|variant| {
+                    let branches = r#enum.get_variants_mut().iter_mut().map(|variant| {
                         let expr =
                             build_comparison_for_fields(variant.get_fields_mut(), &ignored_types);
 
                         let left_patterns = variant.get_fields().to_pattern_with_config(
-                            variant.get_path(),
+                            variant.get_constructor_path(),
                             syn_helpers::TypeOfSelf::Reference,
                             LEFT_NAME_POSTFIX,
                         );
                         let right_patterns = variant.get_fields().to_pattern_with_config(
-                            variant.get_path(),
+                            variant.get_constructor_path(),
                             syn_helpers::TypeOfSelf::Reference,
                             RIGHT_NAME_POSTFIX,
                         );
