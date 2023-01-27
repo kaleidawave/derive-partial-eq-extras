@@ -1,7 +1,7 @@
 [package]
 name = "derive-partial-eq-extras"
 description = "More customisable #[derive(PartialEq)]"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2018"
 authors = [ "Ben <kaleidawave@gmail.com>" ]
 repository = "https://github.com/kaleidawave/derive-partial-eq-extras"
