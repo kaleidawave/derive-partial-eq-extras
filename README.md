@@ -1,12 +1,13 @@
 # Derive partial eq extras
 
-![](https://img.shields.io/crates/v/derive-partial-eq-extras)
+[![crates.io badge](https://img.shields.io/crates/v/derive-partial-eq-extras?style=flat-square)](https://crates.io/crates/derive-partial-eq-extras)
+[![docs.rs badge](https://img.shields.io/docsrs/derive-partial-eq-extras?style=flat-square)](https://docs.rs/derive-partial-eq-extras/latest)
 
 More customisable `#[derive(PartialEq)]`
 
 Adds ability to ignore/skip fields
 
-### `#[partial_eq_ignore]`
+## `#[partial_eq_ignore]`
 
 ```rust
 use derive_partial_eq_extras::PartialEqExtras;
@@ -19,9 +20,9 @@ struct A {
 }
 ```
 
-Here the `y` field is ignored when comparing `A`s. e.g ` A { x: 4, y: "Hello".into() } == A { x: 4, y: "World".into() }` is `true`
+Here the `y` field is ignored when comparing `A`s. e.g `A { x: 4, y: "Hello".into() } == A { x: 4, y: "World".into() }` is `true`
 
-### `#[partial_eq_ignore_types]`
+## `#[partial_eq_ignore_types]`
 
 ```rust
 use derive_partial_eq_extras::PartialEqExtras;

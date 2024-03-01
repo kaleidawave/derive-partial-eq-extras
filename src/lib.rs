@@ -31,7 +31,7 @@ pub fn partial_eq_extras(input: TokenStream) -> TokenStream {
 
             let ignored_types: Vec<Type> = attributes
                 .iter()
-                .filter(|attr| attr.path.is_ident(IGNORE_TYPES))
+                .filter(|attr| attr.path().is_ident(IGNORE_TYPES))
                 .flat_map(|attr| {
                     attr.parse_args::<CommaSeparatedList<Type>>()
                         .unwrap()
@@ -58,7 +58,7 @@ pub fn partial_eq_extras(input: TokenStream) -> TokenStream {
                         let (#left_patterns, #right_patterns) = (self, other);
                     };
 
-                    Ok(vec![declaration, Stmt::Expr(expr)])
+                    Ok(vec![declaration, Stmt::Expr(expr, None)])
                 }
                 syn_helpers::Structure::Enum(r#enum) => {
                     let branches = r#enum.get_variants_mut().iter_mut().map(|variant| {
@@ -111,7 +111,7 @@ fn build_comparison_for_fields(fields: &mut Fields, ignored_types: &[Type]) -> E
         if field
             .get_attributes()
             .iter()
-            .any(|attr| attr.path.is_ident(IGNORE_FIELD))
+            .any(|attr| attr.path().is_ident(IGNORE_FIELD))
         {
             continue;
         }

@@ -2,11 +2,12 @@
 name = "derive-partial-eq-extras"
 description = "More customisable #[derive(PartialEq)]"
 version = "0.1.2"
-edition = "2018"
-authors = [ "Ben <kaleidawave@gmail.com>" ]
+edition = "2021"
+authors = ["Ben <kaleidawave@gmail.com>"]
 repository = "https://github.com/kaleidawave/derive-partial-eq-extras"
-categories = [ "development-tools" ]
+categories = ["development-tools"]
 license = "MIT"
+keywords = ["partial", "eq", "derive", "extras"]
 
 [lib]
 proc-macro = true
@@ -14,5 +15,5 @@ proc-macro = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-syn-helpers = "0.4.1"
-syn = { version = "1.0.81", features = ["full", "extra-traits"] }
+# `syn-extra-traits` is for `syn::Type` equality
+syn-helpers = { version = "0.5", features = ["syn-extra-traits"] }
